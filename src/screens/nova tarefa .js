@@ -1,6 +1,7 @@
-import { StyleSheet, Text, TextInput, View} from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Picker } from '@react-native-picker/picker';
 
- export default function Novatarefa() {
+export default function Novatarefa() {
     return (
         <View>
             <View style={styles.cabecalho}>
@@ -8,21 +9,18 @@ import { StyleSheet, Text, TextInput, View} from "react-native";
             </View>
 
             <View style={styles.body}>
-                <Text style = {styles.texto}>Nome da Tarefa</Text>
+                <Text style={styles.texto}>nome da Tarefa</Text>
                 <TextInput style={styles.textInput} />
-                
-                <Text>Categoria da Tarefa:</Text>
+                <Text style={styles.texto}>categoria da Tarefa</Text>
                 <TextInput style={styles.textInput} />
-            
-                <TextInput
-                    Text style={styles.textInput}
-                    placeholder="Selecione a categoria"
-                    placeholderTextColor="#888" // opcional: cor do placeholder
-                />
-                 
+                <Picker>
+                    <Picker.Item label="Java" value="java" />
+                    <Picker.Item label="JavaScript" value="js" />
+                </Picker>
+
+            </View>
         </View>
-     </View>    
- )
+    )
 
 }
 
@@ -46,19 +44,19 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     body: {
-        padding:15
+        padding: 15
     },
     texto: {
         marginBottom: 5
     },
     textInput: {
         borderWidth: 2,
-        height:50,
-        margin:10,
-        padding:10,
-        borderRadius:12
+        height: 50,
+        margin: 10,
+        padding: 10,
+        borderRadius: 12
 
     },
 
-  
+
 });
