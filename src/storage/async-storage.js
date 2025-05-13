@@ -4,18 +4,17 @@ const Key = 'tasks';
 
 const getData = async () => {
     let data = await AsyncStorage.getItem(Key);
+
+    if (data == null) {
+        data = new Array ()
+        setData(data)
+    
+    }
+    return data
 }
 
-if (data == null) {
-    data = new Array ()
-    setData(data)
-
-}
- return data
-
-async (value) => {
+const setData = async (value) => {
     await AsyncStorage.setItem(Key,JSON.stringify(value));
-
 }
 export {
     getData,
