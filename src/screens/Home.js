@@ -1,10 +1,19 @@
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
 import TarefaItem from '../components/TarefaItem';
-import { useNavigation } from '@react-navigation/native';
+import  {getData} from '../storage/async-storage';
+import { useEffect } from 'react';
 
 export default function Home() {
 
-    const navigation = useNavigation();
+    const [ tasks, setTasks ] = useState(null)
+      
+    //Executa ao carregar a página
+    useEffect(async () => {
+        const data = getData();
+        setTasks (data);
+         }, []);
+   
+         console.log(tasks)
 
     return (
         <View style={styles.container}>
@@ -14,19 +23,21 @@ export default function Home() {
             </View>
             <ScrollView style={styles.body}>
                 
+                    tasks.map((item)) => {
+                        return (
+                            <TarefaItem
+                            nome= { item.nome}
+                            status={item.status}
+                            data={item.data}
+                            categoria={item.categoria}
+                            />
+                        )
+                    })
+                }
                 
-            <TarefaItem 
-                    nome="Tarefa1"
-                    status="a cumprir"
-                    data="24/04/2004"
-                    categoria="reunião"
-                />
-                <TarefaItem
-                    nome="Tarefa2"
-                    status="concluído"
-                    data="28/05/2008"
-                    categoria="estudo"
-                />
+                
+           
+            
             </ScrollView>
 
             <TouchableOpacity 
