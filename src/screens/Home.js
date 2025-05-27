@@ -2,16 +2,29 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-nativ
 import TarefaItem from '../components/TarefaItem';
 import  {getData} from '../storage/async-storage';
 import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Home() {
 
+    const navigation = useNavigation();
+
     const [ tasks, setTasks ] = useState(null)
+    const [ isloaded, setIsloaded ] = useState(true)
+
+    const loadData = async () => {
+        const data = await getData();
+        setTasks(data);
+        setIsloaded(!isloaded)
+    }
       
     //Executa ao carregar a página
-    useEffect(async () => {
-        const data = await getData();
-        setTasks (data);
-    }, []);
+    useEffect(() => {
+        if (isloaded){
+            loadData ();
+
+        }
+        
+    }, [isloaded]);
 
     return (
         <View style={styles.container}>
@@ -21,9 +34,10 @@ export default function Home() {
             </View>
             <ScrollView style={styles.body}>
                 {
-                    tasks && tasks.map((item) => {
+                    tasks && tasks.map((item, index) => {
                         return (
                             <TarefaItem
+                                key= {index}
                                 nome= { item.nome}
                                 status={item.status}
                                 data={item.data}
